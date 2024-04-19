@@ -1,0 +1,36 @@
+body {
+    text-align: center;
+}
+
+#settings {
+    position:absolute;
+    top:10px;
+    left:10px;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#bgColorPicker {
+    margin: auto;
+    cursor: pointer;
+    height: 40px;
+    width:50px;
+}
+
+#colorPicker {
+    margin: auto;
+    cursor: pointer;
+    height: 40px;
+    width:50px;
+}
+
+#eraseButton {
+    margin: auto;
+    cursor: pointer;
+    height: 40px;
+    width: 50px;
+}

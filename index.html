@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Çizim</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    
+    }
+    canvas {
+      display: block;
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+    <div id="settings">
+    <input type="color" id="bgColorPicker" value="#ffffff">
+  <input type="color" id="colorPicker">
+  <button id="eraseButton">Sil</button>
+    </div>
+  <canvas id="myCanvas"></canvas>
+  <script src="script.js"></script>
+</body>
+
+<script>
+
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let painting = false;
+let bgColor = '#ffffff';
+let color = '#000000';
+
+const bgColorPicker = document.getElementById('bgColorPicker');
+bgColorPicker.addEventListener('input', () => {
+  bgColor = bgColorPicker.value;
+  canvas.style.backgroundColor = bgColor;
+});
+
+// Renk seçiciye event ekleme
+const colorPicker = document.getElementById('colorPicker');
+colorPicker.addEventListener('input', () => {
+  color = colorPicker.value;
+});
+
+// Sil butonuna event ekleme
+const eraseButton = document.getElementById('eraseButton');
+eraseButton.addEventListener('click', () => {
+canvas.style.backgroundColor = '#FFFFFF';
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+function startPosition(e) {
+    painting = true;
+    draw(e);
+}
+
+function endPosition() {
+    painting = false;
+    ctx.beginPath();
+}
+
+function draw(e) {
+    if (!painting) return;
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = color;
+
+    ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+}
+
+canvas.addEventListener('mousedown', startPosition);
+canvas.addEventListener('mouseup', endPosition);
+canvas.addEventListener('mousemove', draw);
+canvas.style.backgroundColor = bgColor;
+
+</script>
+</html>
